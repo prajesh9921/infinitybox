@@ -46,9 +46,42 @@ var containersStyle = BoxDecoration(
 //////////////////////////////////////////////////////////////////////////////////////////////
 //...WIDGETS//
 
+
+// class Button extends StatefulWidget {
+//   final String label;
+//   final Function()? onPress;
+//   Button({Key? key, required this.label, this.onPress}) : super(key: key);
+//
+//   @override
+//   State<Button> createState() => _ButtonState();
+// }
+//
+// class _ButtonState extends State<Button> {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Expanded(
+//       child: InkWell(
+//         onTap: widget.onPress,
+//         child: Container(
+//           padding: const EdgeInsets.all(10.0),
+//           decoration: btnStyle,
+//           child: Center(
+//             child: Text(
+//               widget.label,
+//               style: const TextStyle(fontSize: 15.0, color: Colors.white),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
 class Button extends StatelessWidget {
   final String label;
-  final void Function()? onPress;
+  final Function()? onPress;
   Button({Key? key, required this.label, this.onPress}) : super(key: key);
 
   @override
@@ -78,7 +111,7 @@ class Containers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: containersStyle,
-      child: Center(child: Text("SCT10$index")),
+      child: Center(child: Text("SCT$index")),
     );
   }
 }

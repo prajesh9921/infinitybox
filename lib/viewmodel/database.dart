@@ -1,69 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
-import 'dart:async';
-import 'package:sqflite/sqflite.dart';
-import 'package:flutter/widgets.dart';
-import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
-class Info {
-  final int? id;
-  final String? restaurantName;
-  final int? boxAdded;
-  final String? customerName;
-  final int? boxOdered;
-  final int? phone;
-  final int? status;
-  Info({
-    this.id,
-    this.boxAdded,
-    this.restaurantName,
-    this.boxOdered,
-    this.customerName,
-    this.phone,
-    this.status,
-  });
+class DataNotifier extends ChangeNotifier{
 
-  factory Info.fromMap(Map<String, dynamic> json) => Info(
-    id: json['id'],
-    restaurantName: json['restaurantName'],
-    boxAdded: json['boxAdded'],
-    customerName: json["customerName"],
-    boxOdered: json["boxOdered"],
-    phone: json["phone"],
-    status: json["status"]
-  );
+  String ordername = "";
+  int phone = 0;
+  int orderCreatedCount = 0;
 
-  Map<String, dynamic> toMap(){
-    return {
-      'id': id,
-      'restaurantName': restaurantName,
-      'boxAdded': boxAdded,
-      'customerName': customerName,
-      'boxOdered': boxOdered,
-      'phone': phone,
-      'status': status,
-    };
+  void OrderCount(int newCount){
+    orderCreatedCount = newCount;
+    notifyListeners();
   }
+
+  void OrderName(String newName){
+    ordername = newName;
+    notifyListeners();
+  }
+
+  void PhoneNumber(int newNum){
+    phone = newNum;
+    notifyListeners();
+  }
+
 }
 
 
-class DatabaseHelper{
-
-  DatabaseHelper._privateConstructor();
-  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
-
-  static Database? _database;
-  Future<Database> get database async => _database ??= await _initDatabase();
-
-  Future<Database> _initDatabase() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, 'Info.db');
-    return await openDatabase(
-      path,
-      version: 1,
-    );
-  }
+class ContainerData{
+  String? Rname;
+  int? quantity;
+  String? Cname;
+  String? status;
+  ContainerData({this.Rname, this.quantity, this.Cname, this.status});
 }
 
-
+List<ContainerData> DataList = [];

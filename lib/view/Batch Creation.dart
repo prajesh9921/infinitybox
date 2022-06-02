@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infynitybox/view/drawer.dart';
 import 'package:infynitybox/view/batch_creation_style.dart';
 import 'package:infynitybox/view/homepage.dart';
+import 'package:infynitybox/viewmodel/database.dart';
 
 
 class BatchCretion extends StatefulWidget {
@@ -14,12 +15,37 @@ class BatchCretion extends StatefulWidget {
 class _BatchCretionState extends State<BatchCretion> {
 
   final restaurantController = TextEditingController();
-  final quantityControler = TextEditingController();
+  late var quantityControler = TextEditingController(text: count.toString());
+  ContainerData Cdata = ContainerData();
+  int count = 0;
+
+
+  void AddContainers(){
+    setState(() {
+      count = count + 1;
+      quantityControler.text = count.toString();
+    });
+  }
+
+  void AddData(){
+    int loop = count;
+    for (int i = 0; i <= loop; i++){
+      String ContainerName = "SCT" + i.toString();
+      var data = ContainerData();
+      data.Rname = restaurantController.text;
+      data.quantity = int.parse(quantityControler.text);
+      data.Cname = ContainerName;
+      data.status = "in restaurant";
+      DataList.add(data);
+    }
+  }
+
 
   void dispose() {
     // Clean up the controller when the widget is disposed.
     restaurantController.dispose();
     quantityControler.dispose();
+    quantityControler = TextEditingController(text: count.toString());
     super.dispose();
   }
 
@@ -85,7 +111,7 @@ class _BatchCretionState extends State<BatchCretion> {
                           children: [
                             const Text("Containers", style: label,),
                             const SizedBox(height: 5.0,),
-                            SizedBox(
+                            count == 0? Center(child: Text("""Please add containers by pressing "Add Containers"""),) : SizedBox(
                               height: 200,
                               child: GridView.builder(
                                   gridDelegate:
@@ -94,10 +120,10 @@ class _BatchCretionState extends State<BatchCretion> {
                                     crossAxisSpacing: 10.0,
                                     mainAxisSpacing: 10.0,
                                   ),
-                                  itemCount: int.tryParse(quantityControler.text),
+                                  itemCount: int.parse(quantityControler.text),
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    return int.tryParse(quantityControler.text) == null ? Text("No containers added") : Containers(index: index,);
+                                    return Containers(index: index,);
                                   }),
                             )
                           ],
@@ -108,9 +134,30 @@ class _BatchCretionState extends State<BatchCretion> {
               // Buttons (Add Container and create)
               Row(
                 children: [
-                  Button(label: "Add Containers", onPress: (){},),
-                  SizedBox(width: 5.0,),
-                  Button(label: "Create",),
+                  Button(label: "Add Containers", onPress: (){
+                    AddContainers();
+                  },),
+                  const SizedBox(width: 5.0,),
+                  Button(label: "Create", onPress: (){
+                    AddData();
+                    var snackBar = SnackBar(
+                        content: Text("Batch Created of ${count} containers"),
+                      action: SnackBarAction(
+                        label: "Go to order page",
+                        onPressed: (){
+                          Navigator.pushNamed(context, '/order_creation');
+                        },
+                      ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },),
+                  const SizedBox(width: 5.0,),
+                  Button(label: "Check", onPress: (){
+                    for(int i = 0; i < DataList.length; i++){
+                      print("the Container value is: ${DataList[i].status}");
+                    }
+                  },)
+
                 ],
               )
             ],

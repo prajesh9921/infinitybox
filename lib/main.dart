@@ -7,6 +7,8 @@ import 'package:infynitybox/view/Batch Creation.dart';
 import 'package:infynitybox/view/ordercreation.dart';
 import 'package:infynitybox/view/collectionagent.dart';
 import 'package:infynitybox/view/receivedcontainer.dart';
+import 'package:infynitybox/viewmodel/database.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
@@ -23,26 +25,29 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      title: 'Flutter Demo',
-      theme: Theme.of(context).copyWith(
-        colorScheme: Theme.of(context).colorScheme.copyWith(
-        primary: const Color(0xFF4EFF10),
-      ),
+    return ChangeNotifierProvider(
+        create: (_) => DataNotifier(),
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            useInheritedMediaQuery: true,
+            locale: DevicePreview.locale(context),
+            builder: DevicePreview.appBuilder,
+            title: 'Flutter Demo',
+            theme: Theme.of(context).copyWith(
+              colorScheme: Theme.of(context).colorScheme.copyWith(
+              primary: const Color(0xFF4EFF10),
+            ),
 ),
       initialRoute: "/",
       routes: {
         '/': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
-        '/batch_creation': (context) => BatchCretion(),
+        '/batch_creation': (context) => const BatchCretion(),
         '/order_creation': (context) => const OrderCreation(),
-        '/agent': (context) => const CollectionAgent(),
+        '/agent': (context) => CollectionAgent(),
         '/received_container': (context) => const ReceivedContainer(),
       },
+    ),
     );
   }
 }

@@ -37,13 +37,13 @@ var phoneDecoration = InputDecoration(
 // Button class widget
 class Btn extends StatelessWidget {
   final String label;
-  const Btn({Key? key, required this.label}) : super(key: key);
+  final Function()? onPress;
+  Btn({Key? key, required this.label, this.onPress}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: InkWell(
-        onTap: (){
-        },
+        onTap: onPress,
         child: Container(
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
@@ -64,7 +64,9 @@ class Btn extends StatelessWidget {
 
 // Containers Widget
 class Containers extends StatelessWidget {
-  const Containers({Key? key}) : super(key: key);
+  int index;
+  Containers({Key? key, required this.index}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,7 @@ class Containers extends StatelessWidget {
         color: const Color(0xCCCCCCBA),
         borderRadius: BorderRadius.circular(10.0)
       ),
-      child: const Center(child: Text("SCT101")),
+      child: Center(child: Text("SCT$index")),
     );
   }
 }
