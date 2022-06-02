@@ -151,13 +151,6 @@ class _BatchCretionState extends State<BatchCretion> {
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },),
-                  const SizedBox(width: 5.0,),
-                  Button(label: "Check", onPress: (){
-                    for(int i = 0; i < DataList.length; i++){
-                      print("the Container value is: ${DataList[i].status}");
-                    }
-                  },)
-
                 ],
               )
             ],

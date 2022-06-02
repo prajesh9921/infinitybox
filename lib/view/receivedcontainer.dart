@@ -54,7 +54,7 @@ class _ReceivedContainerState extends State<ReceivedContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text("Containers with collection agent list"),
-                count == 0? Center(child: Text("Press referesh button")) : Expanded(
+                count == 0 ? Center(child: Text("Press referesh button")) : Expanded(
                   child: ListView.builder(
                   itemCount: count,
                   itemBuilder: (BuildContext context, int index) {

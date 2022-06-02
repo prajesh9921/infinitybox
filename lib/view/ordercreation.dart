@@ -133,13 +133,6 @@ class _OrderCreationState extends State<OrderCreation> {
                         phone: phoneNumber.text,
                       )));
                   },),
-                  SizedBox(width: 5.0,),
-                  Btn(label: "check", onPress: (){
-                    for(int i = 0; i < DataList.length; i++){
-                      print("the Container value is: ${DataList[i].status}");
-                    }
-
-                  },)
                 ],)],),),),);}}
 
 
