@@ -107,11 +107,13 @@ class Button extends StatelessWidget {
 class Containers extends StatelessWidget {
   Containers({Key? key, required this.index}) : super(key: key);
   int index;
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: containersStyle,
-      child: Center(child: Text("SCT$index")),
+      child: Center(child: Text("SCT${index+1}")),
     );
   }
 }

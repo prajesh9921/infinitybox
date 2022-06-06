@@ -23,7 +23,7 @@ class _OrderCreationState extends State<OrderCreation> {
   int count = 0;
 
   void AddContainers(){
-    int limit = DataList.length-1;
+    int limit = DataList.length;
     setState(() {
       if(limit == 0){
         print("Create batch first");
@@ -47,6 +47,14 @@ class _OrderCreationState extends State<OrderCreation> {
     for(int i = 0; i < count; i++){
       DataList[i].status = "withcustomer";
     }
+    debug();
+  }
+
+  void debug(){
+    DataList.forEach((ele) {
+      print(ele.Cname);
+      print(ele.status);
+    });
   }
 
   @override

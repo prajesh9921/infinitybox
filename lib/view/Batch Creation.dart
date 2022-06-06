@@ -29,7 +29,7 @@ class _BatchCretionState extends State<BatchCretion> {
 
   void AddData(){
     int loop = count;
-    for (int i = 0; i <= loop; i++){
+    for (int i = 0; i < loop; i++){
       String ContainerName = "SCT" + i.toString();
       var data = ContainerData();
       data.Rname = restaurantController.text;
@@ -37,6 +37,8 @@ class _BatchCretionState extends State<BatchCretion> {
       data.Cname = ContainerName;
       data.status = "in restaurant";
       DataList.add(data);
+      print(DataList[i].Cname);
+      print(DataList[i].status);
     }
   }
 

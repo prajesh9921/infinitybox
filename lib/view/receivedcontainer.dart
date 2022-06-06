@@ -13,17 +13,32 @@ class ReceivedContainer extends StatefulWidget {
 }
 
 class _ReceivedContainerState extends State<ReceivedContainer> {
-    int count = 0;
+    int countt = 0;
+    int temp_count = 0;
+
+    // void ContainerStatus(){
+    //   int len = DataList.length;
+    //   for (int i = 0; i < len; i++){
+    //     if(DataList[i].status == "withcollectionagent"){
+    //       setState((){
+    //         count = count + 1;
+    //       });
+    //     }
+    //   }
+    // }
 
     void ContainerStatus(){
-      int len = DataList.length;
-      for (int i = 0; i < len; i++){
-        if(DataList[i].status == "withcollectionagent"){
+      DataList.forEach((ele) {
+        if (ele.status == "withcollectionagent"){
           setState((){
-            count = count + 1;
+            temp_count ++;
           });
         }
-      }
+      });
+      countt = temp_count;
+      temp_count = 0;
+      print(countt);
+      print(temp_count);
     }
 
   @override
@@ -54,9 +69,9 @@ class _ReceivedContainerState extends State<ReceivedContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text("Containers with collection agent list"),
-                count == 0 ? Center(child: Text("Press referesh button")) : Expanded(
+                countt == 0 ? Center(child: Text("Press referesh button")) : Expanded(
                   child: ListView.builder(
-                  itemCount: count,
+                  itemCount: countt,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       margin: containerMargin,

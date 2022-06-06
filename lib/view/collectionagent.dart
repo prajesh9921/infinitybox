@@ -15,11 +15,19 @@ class CollectionAgent extends StatefulWidget {
 }
 
 class _CollectionAgentState extends State<CollectionAgent> {
+  int count = 0;
+
+  @override
+  void initState(){
+    super.initState();
+    ShowCards();
+    print(count);
+  }
 
   void ContainerStatus(int index){
     DataList[index].status = "withcollectionagent";
     var snackBar = SnackBar(
-      content: Text("Container ${DataList[index].Cname}, is with Collection Agent Center"),
+      content: Text("Container ${DataList[index].Cname}, is with Collection Agent"),
       action: SnackBarAction(
         label: "Go to received containers",
         onPressed: (){
@@ -28,6 +36,23 @@ class _CollectionAgentState extends State<CollectionAgent> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    debug();
+  }
+
+  void ShowCards(){
+    DataList.forEach((element) {
+      if (element == "withcustomer"){
+        setState((){
+          count++;
+        });
+      }
+    });
+  }
+  void debug(){
+    DataList.forEach((ele) {
+      print(ele.Cname);
+      print(ele.status);
+    });
   }
 
   @override
@@ -42,7 +67,7 @@ class _CollectionAgentState extends State<CollectionAgent> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: ListView.builder(
-              itemCount: widget.quantity,
+              itemCount: count,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                     height: 120.0,
@@ -58,7 +83,7 @@ class _CollectionAgentState extends State<CollectionAgent> {
                       children: [
                         CustomText(tag: "CustomerName", label: widget.cusname,),
                         CustomText(tag: "Phone Number", label: widget.phone),
-                        const CustomText(tag: "Quantity", label: "5"),
+                        CustomText(tag: "Quantity", label: widget.quantity.toString()),
                         Align(
                           alignment: Alignment.bottomRight,
                           child: InkWell(
