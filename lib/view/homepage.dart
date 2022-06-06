@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            "InfinityBox",
+            "InfiBox",
             style: AppBarTitleStyle,
           ),
         ),

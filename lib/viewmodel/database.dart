@@ -22,6 +22,8 @@ class DataNotifier extends ChangeNotifier{
     notifyListeners();
   }
 
+
+
 }
 
 
@@ -34,3 +36,4 @@ class ContainerData{
 }
 
 List<ContainerData> DataList = [];
+

@@ -20,8 +20,15 @@ class _CollectionAgentState extends State<CollectionAgent> {
   @override
   void initState(){
     super.initState();
-    ShowCards();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ShowCards();
+    });
     print(count);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void ContainerStatus(int index){
@@ -39,15 +46,16 @@ class _CollectionAgentState extends State<CollectionAgent> {
     debug();
   }
 
-  void ShowCards(){
+  void ShowCards() async{
     DataList.forEach((element) {
-      if (element == "withcustomer"){
+      if (element.status == "withcustomer"){
         setState((){
           count++;
         });
       }
     });
   }
+
   void debug(){
     DataList.forEach((ele) {
       print(ele.Cname);
@@ -66,7 +74,7 @@ class _CollectionAgentState extends State<CollectionAgent> {
 
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: ListView.builder(
+          child: count == 0 ? Center(child: Text("Noting to show")) : ListView.builder(
               itemCount: count,
               itemBuilder: (BuildContext context, int index) {
                 return Container(

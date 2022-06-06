@@ -15,17 +15,31 @@ class ReceivedContainer extends StatefulWidget {
 class _ReceivedContainerState extends State<ReceivedContainer> {
     int countt = 0;
     int temp_count = 0;
+    int count = 0;
 
-    // void ContainerStatus(){
-    //   int len = DataList.length;
-    //   for (int i = 0; i < len; i++){
-    //     if(DataList[i].status == "withcollectionagent"){
-    //       setState((){
-    //         count = count + 1;
-    //       });
-    //     }
-    //   }
-    // }
+    @override
+    void initState(){
+      super.initState();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ListCards();
+      });
+      print(count);
+    }
+
+    @override
+    void dispose() {
+      super.dispose();
+    }
+
+    void ListCards() async{
+      DataList.forEach((element) {
+        if (element.status == "withcollectionagent"){
+          setState((){
+            count++;
+          });
+        }
+      });
+  }
 
     void ContainerStatus(){
       DataList.forEach((ele) {
@@ -35,9 +49,9 @@ class _ReceivedContainerState extends State<ReceivedContainer> {
           });
         }
       });
-      countt = temp_count;
+      count = temp_count;
       temp_count = 0;
-      print(countt);
+      print(count);
       print(temp_count);
     }
 
@@ -69,9 +83,9 @@ class _ReceivedContainerState extends State<ReceivedContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text("Containers with collection agent list"),
-                countt == 0 ? Center(child: Text("Press referesh button")) : Expanded(
+                count == 0 ? Center(child: Text("Press referesh button")) : Expanded(
                   child: ListView.builder(
-                  itemCount: countt,
+                  itemCount: count,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       margin: containerMargin,
